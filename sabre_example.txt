@@ -1,0 +1,26 @@
+
+include_once 'SabreAMF/AMF3/Serializer.php';
+include_once 'SabreAMF/AMF3/Deserializer.php';
+include_once 'SabreAMF/OutputStream.php';
+include_once 'SabreAMF/InputStream.php';
+include_once 'SabreAMF/TypedObject.php';
+include_once 'SabreAMF/ClassMapper.php';
+
+/************DECODER*****************/
+SabreAMF_ClassMapper::registerClass('FLASH_CLASS_NAME','PHP_CLASS_NAME'); //CLASSES SHOULD BE SAME
+$inputStream = new SabreAMF_InputStream($buffer);
+$des = new SabreAMF_AMF3_Deserializer($inputStream);
+$obj = $des->readAMFData();
+//$obj will contain the instance of PHP_CLASS_NAME with the properties set as the values sent by Flex/Flash
+/************END DECODER*****************/
+
+/**************ENCODER******************/
+$classObj = new PHP_CLASS(); //PHP_CLASS is your class
+$object = new SabreAMF_TypedObject('FLASH_CLASS_NAME',$classObj); //FLASH_CLASS_NAME IS NAME OF CLASS AVAILABLE TO FLASH FOR MAPPING
+$outputStream = new SabreAMF_OutputStream();
+$serializer = new SabreAMF_AMF3_Serializer($outputStream);
+$serializer->writeAMFData($object);
+$output = $outputStream->getRawData();
+
+//$output is AMF Encoded string to be sent to FLEX/FLASH. 
+/***********END ENCODER***************/

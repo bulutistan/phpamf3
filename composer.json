@@ -1,0 +1,6 @@
+{
+    "require": {
+        "sabre/amf": "^1.5",
+        "textalk/websocket": "^1.2"
+    }
+}

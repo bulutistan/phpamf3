@@ -1,0 +1,10 @@
+<?php 
+
+// rename this file as login.php
+
+$url = "https://<VCENTER_HOST>/vsphere-client/";
+$user = "<USERNAME>@<DOMAIN>.<EXT>";
+$pass = "<CLEAN_PASSWORD>";
+
+
+ ?>
